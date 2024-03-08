@@ -1,4 +1,5 @@
 // @file poly.h Represents integer lattice elements
+// @file poly.h Represents integer lattice elements
 // @author TPOC: contact@palisade-crypto.org
 //
 // @copyright Copyright (c) 2019, New Jersey Institute of Technology (NJIT)

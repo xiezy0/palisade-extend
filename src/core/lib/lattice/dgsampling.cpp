@@ -126,7 +126,8 @@ void LatticeGaussSampUtility<Element>::GaussSampGqArbBase(
   typename Element::PolyLargeType u = syndrome.CRTInterpolate();
 
   const typename Poly::Integer &modulus = u.GetParams()->GetModulus();
-  double sigma = stddev / (base + 1);
+  //double sigma = stddev / (base + 1);
+  double sigma = ETA;
 
   std::vector<int64_t> m_digits = *(GetDigits(modulus, base, k));
 

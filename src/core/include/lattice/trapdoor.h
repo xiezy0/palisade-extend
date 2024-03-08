@@ -113,7 +113,7 @@ class RLWETrapdoorUtility {
    */
   static std::pair<Matrix<Element>, RLWETrapdoorPair<Element>>
   TrapdoorGenSquareMat(shared_ptr<ParmType> params, double stddev,
-                       size_t dimension, int64_t base = 2, bool bal = false);
+                       size_t dimension, int64_t base = 2, size_t k = 0, bool bal = false);
 
   /**
    * Gaussian sampling as described in Alogorithm 2 of
@@ -136,13 +136,6 @@ class RLWETrapdoorUtility {
                                    const Element &u, DggType &dgg,
                                    DggType &dggLargeSigma, int64_t base = 2);
 
-
-
-  static Matrix<Element> GaussSampMatrix(size_t n, size_t k, const Matrix<Element> &A,
-                                        const RLWETrapdoorPair<Element> &T,
-                                         const Matrix<Element> &Ai, DggType &dgg,
-                                         DggType &dggLargeSigma, int64_t base = 2);
-
   /**
    * Gaussian sampling (described in "Implementing Token-Based Obfuscation under
    * (Ring) LWE")
@@ -161,12 +154,12 @@ class RLWETrapdoorUtility {
   static Matrix<Element> GaussSampSquareMat(
       size_t n, size_t k, const Matrix<Element> &A,
       const RLWETrapdoorPair<Element> &T, const Matrix<Element> &U,
-      DggType &dgg, DggType &dggLargeSigma, int64_t base = 2);
+      DggType &dgg, DggType &dggLargeSigma, int64_t base = 0);
 
   static Matrix<Element> GaussSampSquareVec(
       size_t n, size_t k, const Matrix<Element> &A,
       const RLWETrapdoorPair<Element> &T, const Matrix<Element> &U,
-      DggType &dgg, DggType &dggLargeSigma, int64_t base = 2);
+      DggType &dgg, DggType &dggLargeSigma, int64_t base = 0);
 
   /**
    * On-line stage of pre-image sampling (includes only G-sampling)
@@ -387,6 +380,9 @@ class RLWETrapdoorUtility {
     Matrix<int64_t> p2ZVector([]() { return 0; }, n * k, d);
 
     double sigmaLarge = sqrt(s * s - sigma * sigma);
+//    std::cout << "sigma(distribute params of G-samp): " << sigma << std::endl;
+//    std::cout << "spectral norm(upper bound): " << s << std::endl;
+//    std::cout << "sample: " << sigmaLarge << std::endl;
 
     // for distribution parameters up to the experimentally found threshold, use
     // the Peikert's inversion method otherwise, use Karney's method

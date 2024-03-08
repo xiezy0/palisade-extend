@@ -87,7 +87,7 @@ template <>
 std::pair<Matrix<DCRTPoly>, RLWETrapdoorPair<DCRTPoly>>
 RLWETrapdoorUtility<DCRTPoly>::TrapdoorGenSquareMat(shared_ptr<ParmType> params,
                                                     double stddev, size_t d,
-                                                    int64_t base, bool bal) {
+                                                    int64_t base, size_t k, bool bal) {
   auto zero_alloc = DCRTPoly::Allocator(params, EVALUATION);
   auto gaussian_alloc = DCRTPoly::MakeDiscreteGaussianCoefficientAllocator(
       params, COEFFICIENT, stddev);
@@ -98,7 +98,7 @@ RLWETrapdoorUtility<DCRTPoly>::TrapdoorGenSquareMat(shared_ptr<ParmType> params,
 
   size_t digitCount = (long)ceil(log2(q.ConvertToDouble()) / log2(base));
 
-  size_t k = params->GetParams().size() * digitCount;
+  k = params->GetParams().size() * digitCount;
 
   if (bal == true) {
     k++;  // for a balanced digit representation, there is an extra digit

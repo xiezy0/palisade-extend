@@ -155,8 +155,7 @@ TEST(UTTrapdoor, TrapDoorPairTestSquareMat) {
   // std::cout << stackedTrap2 <<std::endl;
 
   EXPECT_EQ(2 * d, stackedTrap1.GetRows()) << "Failure testing number of rows";
-  EXPECT_EQ(d * k, stackedTrap1.GetCols())
-      << "Failure testing number of colums";
+  EXPECT_EQ(d * k, stackedTrap1.GetCols()) << "Failure testing number of colums";
 
   Matrix<Poly> stackedTrap2 = stackedTrap1.VStack(eyeKK);
 
@@ -518,7 +517,7 @@ TEST(UTTrapdoor, TrapDoorGaussSampTest) {
   u.SwitchFormat();
   DEBUG("u " << u);
 
-  Matrix<Poly> z = RLWETrapdoorUtility<Poly>::GaussSampMatrix(
+  Matrix<Poly> z = RLWETrapdoorUtility<Poly>::GaussSampSquareMat(
       m / 2, k, trapPair.first, trapPair.second, trapPair.first, dgg, dggLargeSigma);
   std::cout << z.GetData() << std::endl;
 }
@@ -613,7 +612,7 @@ TEST(UTTrapdoor, TrapDoorGaussSampTestSquareVectors) {
                                            // working in a single instance.
   double logTwo = std::ceil(log2(val));
   usint k = (usint)(logTwo);
-  //std::cout << k << std::endl;
+  std::cout << k << std::endl;
 
   auto params = std::make_shared<ILParams>(m, modulus, rootOfUnity);
 
